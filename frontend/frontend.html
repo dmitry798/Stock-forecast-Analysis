@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockForecast — прогноз роста акций</title>
+    <!-- Chart.js для графиков -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #1e293b;
+        }
+
+        /* --- единый стиль для всех страниц --- */
+        .app-header {
+            background: #0f172a;
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+        .logo span {
+            color: #38bdf8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            margin-top: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .nav-links button {
+            background: none;
+            border: none;
+            color: #cbd5e1;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            transition: 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-links button.active {
+            color: white;
+            border-bottom-color: #38bdf8;
+        }
+        .nav-links button:hover {
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* карточки, формы, таблицы */
+        .card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            color: #334155;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            background: #fefefe;
+        }
+        button.btn {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button.btn-primary {
+            background: #2563eb;
+        }
+        button.btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        /* плиточный список акций */
+        .stocks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .stock-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.2rem;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            border: 1px solid #eef2ff;
+        }
+        .stock-card:hover {
+            transform: translateY(-4px);
+        }
+        .stock-symbol {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .stock-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0.5rem 0;
+        }
+        .stock-change {
+            font-size: 0.9rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        .positive { color: #10b981; background: #d1fae5; }
+        .negative { color: #ef4444; background: #fee2e2; }
+
+        /* таблица аналитики */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .data-table th, .data-table td {
+            padding: 0.9rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .data-table th {
+            background: #f8fafc;
+            font-weight: 600;
+        }
+
+        /* график */
+        canvas {
+            max-height: 300px;
+            width: 100%;
+        }
+
+        .page {
+            display: none;
+            animation: fade 0.25s ease;
+        }
+        .active-page {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 2rem;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 0 1rem; }
+            .nav-links { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-header">
+        <div class="logo"><h1>📈 Stock<span>Forecast</span></h1></div>
+        <div class="nav-links" id="navLinks">
+            <button data-page="forecast" class="active">🔮 Прогноз</button>
+            <button data-page="analytics">📊 Аналитика (фичи)</button>
+            <button data-page="stocks">📋 Все активы</button>
+            <button data-page="community">💬 Сообщество</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- СТРАНИЦА 1: ПРОГНОЗ + графики + форма параметров -->
+        <div id="forecastPage" class="page active-page">
+            <div class="card">
+                <h2>🚀 Прогноз роста акций на основе модели AI</h2>
+                <p>Выберите тикер и задайте параметры модели</p>
+                <!-- Форма №1 -->
+                <form id="forecastForm">
+                    <div class="form-group">
+                        <label>Тикер акции</label>
+                        <input type="text" id="ticker" placeholder="Например: AAPL, TSLA, NVDA" value="AAPL">
+                    </div>
+                    <div class="form-group">
+                        <label>Горизонт прогноза (дней)</label>
+                        <input type="number" id="horizon" value="30" min="5" max="180">
+                    </div>
+                    <div class="form-group">
+                        <label>Модель</label>
+                        <select id="modelSelect">
+                            <option value="lstm">LSTM (глубокая нейросеть)</option>
+                            <option value="transformer">Transformer (новейшая)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">📈 Рассчитать прогноз</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>📉 Историческая цена & прогноз</h3>
+                <canvas id="priceChart" width="800" height="300" style="max-height: 300px;"></canvas>
+                <div id="forecastResult" style="margin-top: 1rem; font-weight: 500;"></div>
+            </div>
+
+            <!-- Форма №2: обратная связь / подписка на сигналы -->
+            <div class="card">
+                <h3>✉️ Подписка на ежедневные сигналы</h3>
+                <form id="subscribeForm">
+                    <input type="email" id="subEmail" placeholder="Ваш email" required style="margin-bottom: 10px;">
+                    <button type="submit" class="btn">Подписаться</button>
+                </form>
+                <p id="subMsg" style="margin-top: 8px; font-size: 0.9rem;"></p>
+            </div>
+        </div>
+
+        <!-- СТРАНИЦА 2: АНАЛИТИКА (таблица с фичами) -->
+        <div id="analyticsPage" class="page">
+            <div class="card">
+                <h2>📐 Аналитические признаки (Feature Store)</h2>
+                <p>Ключевые метрики для выбранных активов</p>
+                <div style="overflow-x: auto;">
+                    <table class="data-table" id="featuresTable">
+                        <thead>
+                            <tr><th>Актив</th><th>RSI (14)</th><th>MACD сигнал</th><th>Волатильность %</th><th>ROE</th><th>Рекомендация</th></tr>
+                        </thead>
+                        <tbody id="featuresBody">
+                            <!-- заполняется js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- СТРАНИЦА 3: СПИСОК АКТИВОВ (плитка) -->
+        <div id="stocksPage" class="page">
+            <div class="card">
+                <h2>🏢 Все доступные активы</h2>
+                <p>Плиточное отображение – кликните на карточку для быстрого прогноза</p>
+                <div class="stocks-grid" id="stocksGrid"></div>
+            </div>
+        </div>
+
+        <!-- СТРАНИЦА 4: сообщество / форма добавления идеи (третья форма) -->
+        <div id="communityPage" class="page">
+            <div class="card">
+                <h2>💡 Идеи трейдеров</h2>
+                <p>Поделитесь своим прогнозом или обсудите стратегии</p>
+                <!-- Форма №3: добавление идеи -->
+                <form id="ideaForm">
+                    <div class="form-group">
+                        <label>Ваше имя</label>
+                        <input type="text" id="authorName" placeholder="Аналитик" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Тикер</label>
+                        <input type="text" id="ideaTicker" placeholder="AAPL" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Комментарий / прогноз</label>
+                        <textarea rows="2" id="ideaText" placeholder="Ожидаю рост на 15% из-за отчета..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">📤 Опубликовать идею</button>
+                </form>
+                <div id="ideasList" style="margin-top: 2rem;">
+                    <h4>📌 Последние идеи сообщества</h4>
+                    <ul id="communityIdeas" style="list-style: none; padding-left: 0;"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>© 2025 StockForecast — Модель машинного обучения для предсказания роста акций. Данные симулированы.</footer>
+
+    <script>
+        // ---------- МОКОВЫЕ ДАННЫЕ ----------
+        // Список акций для плитки
+        const stocksData = [
+            { symbol: "AAPL", name: "Apple Inc.", price: 175.34, change: 1.2 },
+            { symbol: "MSFT", name: "Microsoft", price: 415.20, change: -0.3 },
+            { symbol: "GOOGL", name: "Alphabet", price: 142.80, change: 0.8 },
+            { symbol: "NVDA", name: "NVIDIA", price: 890.12, change: 3.5 },
+            { symbol: "TSLA", name: "Tesla", price: 178.45, change: -2.1 },
+            { symbol: "AMZN", name: "Amazon", price: 183.90, change: 0.5 },
+            { symbol: "META", name: "Meta", price: 485.60, change: 1.7 },
+            { symbol: "NFLX", name: "Netflix", price: 612.30, change: 2.0 }
+        ];
+
+        // Данные для таблицы аналитики (фичи)
+        const featuresData = {
+            AAPL: { rsi: 58, macd: "бычий", vol: 22, roe: 147, rec: "Покупать" },
+            MSFT: { rsi: 45, macd: "медвежий", vol: 18, roe: 38, rec: "Держать" },
+            GOOGL: { rsi: 62, macd: "бычий", vol: 25, roe: 29, rec: "Accumulate" },
+            NVDA: { rsi: 71, macd: "сильный бычий", vol: 42, roe: 65, rec: "Агрессивно покупать" },
+            TSLA: { rsi: 33, macd: "медвежий", vol: 58, roe: 24, rec: "Продавать" },
+            AMZN: { rsi: 51, macd: "нейтральный", vol: 20, roe: 15, rec: "Держать" },
+            META: { rsi: 67, macd: "бычий", vol: 29, roe: 31, rec: "Покупать" },
+            NFLX: { rsi: 49, macd: "нейтральный", vol: 34, roe: 27, rec: "Держать" }
+        };
+
+        // Хранилище идей сообщества (localStorage)
+        let communityIdeas = [];
+
+        // Глобальная переменная для графика
+        let chartInstance = null;
+
+        // ---------- ФУНКЦИИ ИНИЦИАЛИЗАЦИИ ----------
+        function init() {
+            loadCommunityIdeas();
+            renderStocksGrid();
+            renderFeaturesTable();
+            setupChartWithMock();  // начальный график AAPL
+            attachEventListeners();
+            // обработка форм
+            document.getElementById('forecastForm').addEventListener('submit', handleForecastSubmit);
+            document.getElementById('subscribeForm').addEventListener('submit', handleSubscribe);
+            document.getElementById('ideaForm').addEventListener('submit', handleIdeaSubmit);
+        }
+
+        // --- отрисовка плитки (список активов) ---
+        function renderStocksGrid() {
+            const grid = document.getElementById('stocksGrid');
+            grid.innerHTML = stocksData.map(stock => `
+                <div class="stock-card" onclick="quickPredict('${stock.symbol}')">
+                    <div class="stock-symbol">${stock.symbol}</div>
+                    <div class="stock-name" style="color:#475569">${stock.name}</div>
+                    <div class="stock-price">$${stock.price.toFixed(2)}</div>
+                    <div class="stock-change ${stock.change >= 0 ? 'positive' : 'negative'}">
+                        ${stock.change >= 0 ? '▲' : '▼'} ${Math.abs(stock.change)}%
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.quickPredict = (symbol) => {
+            document.getElementById('ticker').value = symbol;
+            // переключаемся на страницу прогноза
+            switchPage('forecast');
+            // автоматически запускаем прогноз
+            setTimeout(() => {
+                document.getElementById('forecastForm').dispatchEvent(new Event('submit'));
+            }, 100);
+        };
+
+        // --- Таблица аналитики (фичи) ---
+        function renderFeaturesTable() {
+            const tbody = document.getElementById('featuresBody');
+            tbody.innerHTML = stocksData.map(s => {
+                const f = featuresData[s.symbol] || { rsi: '—', macd: '—', vol: '—', roe: '—', rec: '—' };
+                return `<tr>
+                    <td><b>${s.symbol}</b><br><small>${s.name}</small></td>
+                    <td>${f.rsi}</td>
+                    <td>${f.macd}</td>
+                    <td>${f.vol}%</td>
+                    <td>${f.roe}%</td>
+                    <td style="background:${f.rec.includes('Покупать') ? '#e0f2fe' : '#fef9c3'}">${f.rec}</td>
+                </tr>`;
+            }).join('');
+        }
+
+        // --- График: исторические + прогнозные точки (mock) ---
+        async function setupChartWithMock(ticker = 'AAPL', horizon = 30) {
+            // симуляция исторических цен (30 дней)
+            const historyDays = 30;
+            const labels = [];
+            const historyPrices = [];
+            let basePrice = ticker === 'AAPL' ? 175 : (ticker === 'TSLA' ? 178 : (ticker === 'NVDA' ? 890 : 150));
+            for (let i = historyDays; i >= 0; i--) {
+                labels.push(`День -${i}`);
+                let variation = Math.sin(i * 0.2) * 5 + (Math.random() * 2);
+                historyPrices.push(basePrice + variation);
+            }
+            // прогноз: предполагаемый рост
+            const forecastDays = horizon;
+            const forecastLabels = [];
+            const forecastPrices = [];
+            let lastPrice = historyPrices[historyPrices.length - 1];
+            for (let i = 1; i <= forecastDays; i++) {
+                forecastLabels.push(`День +${i}`);
+                // модель предсказывает плавный рост с шумом (демо)
+                let growth = (Math.random() * 0.6 + 0.2) * i; 
+                let predicted = lastPrice + growth * 0.15;
+                forecastPrices.push(predicted);
+                lastPrice = predicted;
+            }
+            const allLabels = [...labels.slice(-15), ...forecastLabels]; // покажем последние 15 ист + прогноз
+            const allPrices = [...historyPrices.slice(-15), ...forecastPrices];
+
+            // Обновление текстового результата
+            const finalPred = forecastPrices[forecastPrices.length-1];
+            const gainPercent = ((finalPred - historyPrices[historyPrices.length-1]) / historyPrices[historyPrices.length-1] * 100).toFixed(2);
+            document.getElementById('forecastResult').innerHTML = `📌 Прогноз на ${horizon} дней: <strong>$${finalPred.toFixed(2)}</strong> (потенциальный рост ${gainPercent}%)`;
+
+            if (chartInstance) chartInstance.destroy();
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: allLabels,
+                    datasets: [
+                        { label: `${ticker} цена (история + прогноз)`, data: allPrices, borderColor: '#2563eb', tension: 0.2, fill: false, pointRadius: 2 },
+                        { label: 'Тренд модели', data: [...Array(historyPrices.slice(-15).length).fill(null), ...forecastPrices], borderColor: '#f97316', borderDash: [6, 6], fill: false }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: true }
+            });
+        }
+
+        // Обработчик формы прогноза
+        async function handleForecastSubmit(e) {
+            e.preventDefault();
+            const ticker = document.getElementById('ticker').value.toUpperCase();
+            const horizon = parseInt(document.getElementById('horizon').value);
+            await setupChartWithMock(ticker, horizon);
+        }
+
+        // форма подписки
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const email = document.getElementById('subEmail').value;
+            if(email && email.includes('@')) {
+                document.getElementById('subMsg').innerHTML = '✅ Вы подписаны на прогнозы! (демо)';
+                setTimeout(() => document.getElementById('subMsg').innerText = '', 3000);
+            } else alert('Введите корректный email');
+        }
+
+        // --- сообщество: идеи, localStorage ---
+        function loadCommunityIdeas() {
+            const stored = localStorage.getItem('stock_ideas');
+            if(stored) communityIdeas = JSON.parse(stored);
+            else {
+                communityIdeas = [
+                    { name: "InvestorAlex", ticker: "NVDA", text: "Рост до $950 после отчетности", date: Date.now() },
+                    { name: "CryptoQueen", ticker: "TSLA", text: "Ожидаю коррекцию, но долгосрочный рост", date: Date.now() - 86400000 }
+                ];
+                saveIdeas();
+            }
+            renderCommunityIdeas();
+        }
+        function saveIdeas() {
+            localStorage.setItem('stock_ideas', JSON.stringify(communityIdeas));
+        }
+        function renderCommunityIdeas() {
+            const container = document.getElementById('communityIdeas');
+            if(!container) return;
+            container.innerHTML = communityIdeas.slice().reverse().map(idea => `
+                <li style="background:#f1f5f9; margin-bottom:12px; padding:12px; border-radius:20px;">
+                    <b>${escapeHtml(idea.name)}</b> о <b>${escapeHtml(idea.ticker)}</b><br>
+                    📝 ${escapeHtml(idea.text)}<br>
+                    <small>${new Date(idea.date).toLocaleString()}</small>
+                </li>
+            `).join('');
+        }
+        function handleIdeaSubmit(e) {
+            e.preventDefault();
+            const author = document.getElementById('authorName').value.trim();
+            const ticker = document.getElementById('ideaTicker').value.trim().toUpperCase();
+            const text = document.getElementById('ideaText').value.trim();
+            if(!author || !ticker || !text) return alert('Заполните все поля');
+            communityIdeas.push({
+                name: author,
+                ticker: ticker,
+                text: text,
+                date: Date.now()
+            });
+            saveIdeas();
+            renderCommunityIdeas();
+            document.getElementById('ideaForm').reset();
+            alert('Идея опубликована!');
+        }
+
+        function escapeHtml(str) {
+            if(!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if(m === '&') return '&amp;';
+                if(m === '<') return '&lt;';
+                if(m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        // --- навигация между 4 страницами ---
+        function switchPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active-page'));
+            document.getElementById(`${pageId}Page`).classList.add('active-page');
+            document.querySelectorAll('.nav-links button').forEach(btn => {
+                if(btn.dataset.page === pageId) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+        }
+
+        function attachEventListeners() {
+            const navBtns = document.querySelectorAll('.nav-links button');
+            navBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    switchPage(btn.dataset.page);
+                });
+            });
+        }
+
+        // дополнительно для TradingView стиль: добавим на страницу аналитики быструю форму (3я форма уже есть в сообществе)
+        // также при загрузке страницы stocks можно через событие перерисовать
+        init();
+    </script>
+</body>
+</html>
