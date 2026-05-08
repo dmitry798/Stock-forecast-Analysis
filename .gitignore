@@ -21,3 +21,11 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
+#Binary files
+*.pkl
+#Env file
+.env
+#Jupyter file
+*.ipynb
+#Datasets
+*.csv

@@ -1,0 +1,12 @@
+services:
+  api:
+    build: ./backend
+    container_name: stockforecast-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/predictions:/data/predictions
+    environment:
+      - PREDICTIONS_DIR=/data/predictions
+      - API_TOKEN=${API_TOKEN}   # задай в .env

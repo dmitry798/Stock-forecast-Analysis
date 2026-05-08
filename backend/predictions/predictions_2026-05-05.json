@@ -1,0 +1,799 @@
+{
+  "metadata": {
+    "prediction_date": "2026-05-05",
+    "model": "MomentumStrategy",
+    "model_version": "v2.0",
+    "total_stocks_scored": 166,
+    "top_k": 20,
+    "target": "P(\u0440\u043e\u0441\u0442 \u0430\u043a\u0446\u0438\u0438 > \u0440\u043e\u0441\u0442 \u0438\u043d\u0434\u0435\u043a\u0441\u0430 \u043d\u0430 2% \u0437\u0430 10 \u0434\u043d\u0435\u0439)",
+    "generated_at": "2026-05-05T12:00:00Z"
+  },
+  "top_picks": [
+    {
+      "rank": 1,
+      "symbol": "PWR",
+      "prob_growth": 0.95,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 2,
+      "symbol": "BEN",
+      "prob_growth": 0.7882,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 3,
+      "symbol": "IRM",
+      "prob_growth": 0.7779,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 4,
+      "symbol": "CAT",
+      "prob_growth": 0.7761,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 5,
+      "symbol": "FSLR",
+      "prob_growth": 0.7554,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 6,
+      "symbol": "WDC",
+      "prob_growth": 0.7436,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 7,
+      "symbol": "NTAP",
+      "prob_growth": 0.7297,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 8,
+      "symbol": "GOOG",
+      "prob_growth": 0.7095,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 9,
+      "symbol": "RJF",
+      "prob_growth": 0.7046,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 10,
+      "symbol": "TSN",
+      "prob_growth": 0.7044,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 11,
+      "symbol": "AMZN",
+      "prob_growth": 0.7039,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 12,
+      "symbol": "CSCO",
+      "prob_growth": 0.6991,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 13,
+      "symbol": "WST",
+      "prob_growth": 0.6968,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 14,
+      "symbol": "DELL",
+      "prob_growth": 0.6953,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 15,
+      "symbol": "ORCL",
+      "prob_growth": 0.6924,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 16,
+      "symbol": "EMN",
+      "prob_growth": 0.6907,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 17,
+      "symbol": "ENPH",
+      "prob_growth": 0.685,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 18,
+      "symbol": "CE",
+      "prob_growth": 0.6771,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 19,
+      "symbol": "TTWO",
+      "prob_growth": 0.674,
+      "signal_date": "2026-05-05"
+    },
+    {
+      "rank": 20,
+      "symbol": "PKG",
+      "prob_growth": 0.6596,
+      "signal_date": "2026-05-05"
+    }
+  ],
+  "all_predictions": [
+    {
+      "symbol": "PWR",
+      "prob_growth": 0.95
+    },
+    {
+      "symbol": "BEN",
+      "prob_growth": 0.7882
+    },
+    {
+      "symbol": "IRM",
+      "prob_growth": 0.7779
+    },
+    {
+      "symbol": "CAT",
+      "prob_growth": 0.7761
+    },
+    {
+      "symbol": "FSLR",
+      "prob_growth": 0.7554
+    },
+    {
+      "symbol": "WDC",
+      "prob_growth": 0.7436
+    },
+    {
+      "symbol": "NTAP",
+      "prob_growth": 0.7297
+    },
+    {
+      "symbol": "GOOG",
+      "prob_growth": 0.7095
+    },
+    {
+      "symbol": "RJF",
+      "prob_growth": 0.7046
+    },
+    {
+      "symbol": "TSN",
+      "prob_growth": 0.7044
+    },
+    {
+      "symbol": "AMZN",
+      "prob_growth": 0.7039
+    },
+    {
+      "symbol": "CSCO",
+      "prob_growth": 0.6991
+    },
+    {
+      "symbol": "WST",
+      "prob_growth": 0.6968
+    },
+    {
+      "symbol": "DELL",
+      "prob_growth": 0.6953
+    },
+    {
+      "symbol": "ORCL",
+      "prob_growth": 0.6924
+    },
+    {
+      "symbol": "EMN",
+      "prob_growth": 0.6907
+    },
+    {
+      "symbol": "ENPH",
+      "prob_growth": 0.685
+    },
+    {
+      "symbol": "CE",
+      "prob_growth": 0.6771
+    },
+    {
+      "symbol": "TTWO",
+      "prob_growth": 0.674
+    },
+    {
+      "symbol": "PKG",
+      "prob_growth": 0.6596
+    },
+    {
+      "symbol": "HPE",
+      "prob_growth": 0.6543
+    },
+    {
+      "symbol": "FFIV",
+      "prob_growth": 0.6521
+    },
+    {
+      "symbol": "FRT",
+      "prob_growth": 0.647
+    },
+    {
+      "symbol": "ESS",
+      "prob_growth": 0.6468
+    },
+    {
+      "symbol": "ADM",
+      "prob_growth": 0.6439
+    },
+    {
+      "symbol": "EL",
+      "prob_growth": 0.6396
+    },
+    {
+      "symbol": "MO",
+      "prob_growth": 0.6332
+    },
+    {
+      "symbol": "SBUX",
+      "prob_growth": 0.6322
+    },
+    {
+      "symbol": "WMB",
+      "prob_growth": 0.6317
+    },
+    {
+      "symbol": "SWK",
+      "prob_growth": 0.6205
+    },
+    {
+      "symbol": "ALB",
+      "prob_growth": 0.6197
+    },
+    {
+      "symbol": "INVH",
+      "prob_growth": 0.6153
+    },
+    {
+      "symbol": "VTRS",
+      "prob_growth": 0.6144
+    },
+    {
+      "symbol": "JCI",
+      "prob_growth": 0.6056
+    },
+    {
+      "symbol": "BKR",
+      "prob_growth": 0.602
+    },
+    {
+      "symbol": "IQV",
+      "prob_growth": 0.6009
+    },
+    {
+      "symbol": "DIS",
+      "prob_growth": 0.5935
+    },
+    {
+      "symbol": "LRCX",
+      "prob_growth": 0.5845
+    },
+    {
+      "symbol": "HST",
+      "prob_growth": 0.5843
+    },
+    {
+      "symbol": "VRSK",
+      "prob_growth": 0.5828
+    },
+    {
+      "symbol": "WELL",
+      "prob_growth": 0.5811
+    },
+    {
+      "symbol": "TSLA",
+      "prob_growth": 0.5777
+    },
+    {
+      "symbol": "EQR",
+      "prob_growth": 0.5752
+    },
+    {
+      "symbol": "HLT",
+      "prob_growth": 0.5742
+    },
+    {
+      "symbol": "IEX",
+      "prob_growth": 0.5726
+    },
+    {
+      "symbol": "SOLV",
+      "prob_growth": 0.5705
+    },
+    {
+      "symbol": "INCY",
+      "prob_growth": 0.5667
+    },
+    {
+      "symbol": "VLO",
+      "prob_growth": 0.5605
+    },
+    {
+      "symbol": "JBHT",
+      "prob_growth": 0.5577
+    },
+    {
+      "symbol": "CRM",
+      "prob_growth": 0.5539
+    },
+    {
+      "symbol": "DOV",
+      "prob_growth": 0.5517
+    },
+    {
+      "symbol": "UDR",
+      "prob_growth": 0.5517
+    },
+    {
+      "symbol": "O",
+      "prob_growth": 0.5515
+    },
+    {
+      "symbol": "RVTY",
+      "prob_growth": 0.551
+    },
+    {
+      "symbol": "AMP",
+      "prob_growth": 0.55
+    },
+    {
+      "symbol": "C",
+      "prob_growth": 0.5496
+    },
+    {
+      "symbol": "VLTO",
+      "prob_growth": 0.5474
+    },
+    {
+      "symbol": "PM",
+      "prob_growth": 0.5463
+    },
+    {
+      "symbol": "ANET",
+      "prob_growth": 0.5399
+    },
+    {
+      "symbol": "AES",
+      "prob_growth": 0.5284
+    },
+    {
+      "symbol": "CVX",
+      "prob_growth": 0.5274
+    },
+    {
+      "symbol": "PAYX",
+      "prob_growth": 0.5269
+    },
+    {
+      "symbol": "T",
+      "prob_growth": 0.5265
+    },
+    {
+      "symbol": "GPN",
+      "prob_growth": 0.526
+    },
+    {
+      "symbol": "GDDY",
+      "prob_growth": 0.5208
+    },
+    {
+      "symbol": "FTNT",
+      "prob_growth": 0.5163
+    },
+    {
+      "symbol": "PNW",
+      "prob_growth": 0.5149
+    },
+    {
+      "symbol": "USB",
+      "prob_growth": 0.5132
+    },
+    {
+      "symbol": "PNC",
+      "prob_growth": 0.5089
+    },
+    {
+      "symbol": "PGR",
+      "prob_growth": 0.5086
+    },
+    {
+      "symbol": "V",
+      "prob_growth": 0.5074
+    },
+    {
+      "symbol": "EQT",
+      "prob_growth": 0.5067
+    },
+    {
+      "symbol": "ALL",
+      "prob_growth": 0.5061
+    },
+    {
+      "symbol": "DE",
+      "prob_growth": 0.5038
+    },
+    {
+      "symbol": "OMC",
+      "prob_growth": 0.5031
+    },
+    {
+      "symbol": "FOX",
+      "prob_growth": 0.5025
+    },
+    {
+      "symbol": "SO",
+      "prob_growth": 0.5006
+    },
+    {
+      "symbol": "MTD",
+      "prob_growth": 0.5
+    },
+    {
+      "symbol": "IFF",
+      "prob_growth": 0.4987
+    },
+    {
+      "symbol": "ED",
+      "prob_growth": 0.4973
+    },
+    {
+      "symbol": "DLR",
+      "prob_growth": 0.4971
+    },
+    {
+      "symbol": "PEP",
+      "prob_growth": 0.4959
+    },
+    {
+      "symbol": "UAL",
+      "prob_growth": 0.4955
+    },
+    {
+      "symbol": "MRK",
+      "prob_growth": 0.4941
+    },
+    {
+      "symbol": "PFG",
+      "prob_growth": 0.4934
+    },
+    {
+      "symbol": "RF",
+      "prob_growth": 0.4934
+    },
+    {
+      "symbol": "TDG",
+      "prob_growth": 0.4925
+    },
+    {
+      "symbol": "BWA",
+      "prob_growth": 0.489
+    },
+    {
+      "symbol": "TT",
+      "prob_growth": 0.4868
+    },
+    {
+      "symbol": "VRTX",
+      "prob_growth": 0.4855
+    },
+    {
+      "symbol": "CME",
+      "prob_growth": 0.4824
+    },
+    {
+      "symbol": "ABBV",
+      "prob_growth": 0.4807
+    },
+    {
+      "symbol": "MSI",
+      "prob_growth": 0.4771
+    },
+    {
+      "symbol": "NDAQ",
+      "prob_growth": 0.4758
+    },
+    {
+      "symbol": "MSFT",
+      "prob_growth": 0.475
+    },
+    {
+      "symbol": "ICE",
+      "prob_growth": 0.4743
+    },
+    {
+      "symbol": "KIM",
+      "prob_growth": 0.4698
+    },
+    {
+      "symbol": "DTE",
+      "prob_growth": 0.4693
+    },
+    {
+      "symbol": "HSIC",
+      "prob_growth": 0.4691
+    },
+    {
+      "symbol": "WEC",
+      "prob_growth": 0.4688
+    },
+    {
+      "symbol": "SYF",
+      "prob_growth": 0.4687
+    },
+    {
+      "symbol": "DHI",
+      "prob_growth": 0.4672
+    },
+    {
+      "symbol": "BK",
+      "prob_growth": 0.4665
+    },
+    {
+      "symbol": "UPS",
+      "prob_growth": 0.4651
+    },
+    {
+      "symbol": "HRL",
+      "prob_growth": 0.4566
+    },
+    {
+      "symbol": "AJG",
+      "prob_growth": 0.4544
+    },
+    {
+      "symbol": "NVDA",
+      "prob_growth": 0.4526
+    },
+    {
+      "symbol": "EQIX",
+      "prob_growth": 0.4518
+    },
+    {
+      "symbol": "PEG",
+      "prob_growth": 0.4465
+    },
+    {
+      "symbol": "DG",
+      "prob_growth": 0.4378
+    },
+    {
+      "symbol": "BAX",
+      "prob_growth": 0.4368
+    },
+    {
+      "symbol": "GIS",
+      "prob_growth": 0.4347
+    },
+    {
+      "symbol": "UBER",
+      "prob_growth": 0.433
+    },
+    {
+      "symbol": "EFX",
+      "prob_growth": 0.4325
+    },
+    {
+      "symbol": "WRB",
+      "prob_growth": 0.4319
+    },
+    {
+      "symbol": "EXPE",
+      "prob_growth": 0.431
+    },
+    {
+      "symbol": "STZ",
+      "prob_growth": 0.4225
+    },
+    {
+      "symbol": "ISRG",
+      "prob_growth": 0.4211
+    },
+    {
+      "symbol": "FDX",
+      "prob_growth": 0.4202
+    },
+    {
+      "symbol": "PPL",
+      "prob_growth": 0.4196
+    },
+    {
+      "symbol": "PHM",
+      "prob_growth": 0.4177
+    },
+    {
+      "symbol": "IR",
+      "prob_growth": 0.4145
+    },
+    {
+      "symbol": "EA",
+      "prob_growth": 0.4054
+    },
+    {
+      "symbol": "PPG",
+      "prob_growth": 0.4049
+    },
+    {
+      "symbol": "XYL",
+      "prob_growth": 0.4012
+    },
+    {
+      "symbol": "DXCM",
+      "prob_growth": 0.3892
+    },
+    {
+      "symbol": "ABT",
+      "prob_growth": 0.3887
+    },
+    {
+      "symbol": "ALLE",
+      "prob_growth": 0.3883
+    },
+    {
+      "symbol": "RTX",
+      "prob_growth": 0.3875
+    },
+    {
+      "symbol": "HCA",
+      "prob_growth": 0.3784
+    },
+    {
+      "symbol": "EIX",
+      "prob_growth": 0.3782
+    },
+    {
+      "symbol": "AOS",
+      "prob_growth": 0.375
+    },
+    {
+      "symbol": "PH",
+      "prob_growth": 0.3742
+    },
+    {
+      "symbol": "FAST",
+      "prob_growth": 0.3733
+    },
+    {
+      "symbol": "AXON",
+      "prob_growth": 0.3678
+    },
+    {
+      "symbol": "BBY",
+      "prob_growth": 0.3676
+    },
+    {
+      "symbol": "TJX",
+      "prob_growth": 0.363
+    },
+    {
+      "symbol": "AXP",
+      "prob_growth": 0.3628
+    },
+    {
+      "symbol": "FCX",
+      "prob_growth": 0.3617
+    },
+    {
+      "symbol": "FOXA",
+      "prob_growth": 0.3609
+    },
+    {
+      "symbol": "APH",
+      "prob_growth": 0.3593
+    },
+    {
+      "symbol": "NFLX",
+      "prob_growth": 0.359
+    },
+    {
+      "symbol": "PODD",
+      "prob_growth": 0.3586
+    },
+    {
+      "symbol": "LEN",
+      "prob_growth": 0.3565
+    },
+    {
+      "symbol": "IP",
+      "prob_growth": 0.356
+    },
+    {
+      "symbol": "LH",
+      "prob_growth": 0.3538
+    },
+    {
+      "symbol": "COF",
+      "prob_growth": 0.3533
+    },
+    {
+      "symbol": "SHW",
+      "prob_growth": 0.3516
+    },
+    {
+      "symbol": "LKQ",
+      "prob_growth": 0.347
+    },
+    {
+      "symbol": "MCD",
+      "prob_growth": 0.3411
+    },
+    {
+      "symbol": "CSGP",
+      "prob_growth": 0.3382
+    },
+    {
+      "symbol": "META",
+      "prob_growth": 0.3379
+    },
+    {
+      "symbol": "HIG",
+      "prob_growth": 0.3375
+    },
+    {
+      "symbol": "FDS",
+      "prob_growth": 0.3313
+    },
+    {
+      "symbol": "CCL",
+      "prob_growth": 0.3298
+    },
+    {
+      "symbol": "WTW",
+      "prob_growth": 0.3297
+    },
+    {
+      "symbol": "BDX",
+      "prob_growth": 0.3237
+    },
+    {
+      "symbol": "CMCSA",
+      "prob_growth": 0.3236
+    },
+    {
+      "symbol": "BLDR",
+      "prob_growth": 0.3152
+    },
+    {
+      "symbol": "DPZ",
+      "prob_growth": 0.3112
+    },
+    {
+      "symbol": "UHS",
+      "prob_growth": 0.3106
+    },
+    {
+      "symbol": "BRO",
+      "prob_growth": 0.3087
+    },
+    {
+      "symbol": "BSX",
+      "prob_growth": 0.2813
+    },
+    {
+      "symbol": "KMX",
+      "prob_growth": 0.2773
+    },
+    {
+      "symbol": "CLX",
+      "prob_growth": 0.2751
+    },
+    {
+      "symbol": "HII",
+      "prob_growth": 0.2738
+    }
+  ]
+}

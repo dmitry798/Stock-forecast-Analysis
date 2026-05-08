@@ -1,0 +1,646 @@
+{
+  "equity_curve": [
+    {
+      "Capital": 10540.580473275622,
+      "PnL": 540.5804732756216,
+      "Trades": 10
+    },
+    {
+      "Capital": 11462.148686637032,
+      "PnL": 921.5682133614101,
+      "Trades": 10
+    },
+    {
+      "Capital": 11536.71438887316,
+      "PnL": 74.56570223612839,
+      "Trades": 10
+    },
+    {
+      "Capital": 11507.213442235081,
+      "PnL": -29.50094663808025,
+      "Trades": 10
+    },
+    {
+      "Capital": 11484.19901535061,
+      "PnL": -23.01442688447017,
+      "Trades": 10
+    },
+    {
+      "Capital": 11461.230617319909,
+      "PnL": -22.968398030701213,
+      "Trades": 10
+    }
+  ],
+  "trades": [
+    {
+      "Date": "2026-04-01",
+      "Symbol": "WDC",
+      "Probability": 0.7199,
+      "Entry Price": 297.7300109863281,
+      "Forward Return (10d)": 0.2148254764213715,
+      "Gross PnL ($)": 214.82547642137152,
+      "Commission ($)": 2.0,
+      "Net PnL ($)": 212.82547642137152
+    },
+    {
+      "Date": "2026-04-01",
+      "Symbol": "CAT",
+      "Probability": 0.7114,
+      "Entry Price": 728.9322509765625,
+      "Forward Return (10d)": 0.05797455309153787,
+      "Gross PnL ($)": 57.97455309153787,
+      "Commission ($)": 2.0,
+      "Net PnL ($)": 55.97455309153787
+    },
+    {
+      "Date": "2026-04-01",
+      "Symbol": "CE",
+      "Probability": 0.7112,
+      "Entry Price": 63.520668029785156,
+      "Forward Return (10d)": 0.07537370968561397,
+      "Gross PnL ($)": 75.37370968561396,
+      "Commission ($)": 2.0,
+      "Net PnL ($)": 73.37370968561396
+    },
+    {
+      "Date": "2026-04-01",
+      "Symbol": "EIX",
+      "Probability": 0.7079,
+      "Entry Price": 72.7021255493164,
+      "Forward Return (10d)": -0.015159489036502771,
+      "Gross PnL ($)": -15.159489036502771,
+      "Commission ($)": 2.0,
+      "Net PnL ($)": -17.15948903650277
+    },
+    {
+      "Date": "2026-04-01",
+      "Symbol": "FDS",
+      "Probability": 0.6997,
+      "Entry Price": 224.86000061035156,
+      "Forward Return (10d)": 0.031086033417195846,
+      "Gross PnL ($)": 31.086033417195846,
+      "Commission ($)": 2.0,
+      "Net PnL ($)": 29.086033417195846
+    },
+    {
+      "Date": "2026-04-01",
+      "Symbol": "EMN",
+      "Probability": 0.6902,
+      "Entry Price": 75.80999755859375,
+      "Forward Return (10d)": -0.03244953388332872,
+      "Gross PnL ($)": -32.44953388332872,
+      "Commission ($)": 2.0,
+      "Net PnL ($)": -34.44953388332872
+    },
+    {
+      "Date": "2026-04-01",
+      "Symbol": "DELL",
+      "Probability": 0.6898,
+      "Entry Price": 168.85752868652344,
+      "Forward Return (10d)": 0.13998106133000654,
+      "Gross PnL ($)": 139.98106133000653,
+      "Commission ($)": 2.0,
+      "Net PnL ($)": 137.98106133000653
+    },
+    {
+      "Date": "2026-04-01",
+      "Symbol": "PPL",
+      "Probability": 0.6844,
+      "Entry Price": 38.369998931884766,
+      "Forward Return (10d)": 0.025280199314706486,
+      "Gross PnL ($)": 25.280199314706486,
+      "Commission ($)": 2.0,
+      "Net PnL ($)": 23.280199314706486
+    },
+    {
+      "Date": "2026-04-01",
+      "Symbol": "BK",
+      "Probability": 0.6526,
+      "Entry Price": 120.49171447753906,
+      "Forward Return (10d)": 0.11465647317909289,
+      "Gross PnL ($)": 114.65647317909288,
+      "Commission ($)": 2.0,
+      "Net PnL ($)": 112.65647317909288
+    },
+    {
+      "Date": "2026-04-01",
+      "Symbol": "ADM",
+      "Probability": 0.6504,
+      "Entry Price": 72.37000274658203,
+      "Forward Return (10d)": -0.05098801024407207,
+      "Gross PnL ($)": -50.98801024407207,
+      "Commission ($)": 2.0,
+      "Net PnL ($)": -52.98801024407207
+    },
+    {
+      "Date": "2026-04-09",
+      "Symbol": "WDC",
+      "Probability": 0.95,
+      "Entry Price": 337.8800048828125,
+      "Forward Return (10d)": 0.19308627113641208,
+      "Gross PnL ($)": 203.52413791980675,
+      "Commission ($)": 2.1081160946551245,
+      "Net PnL ($)": 201.41602182515163
+    },
+    {
+      "Date": "2026-04-09",
+      "Symbol": "LRCX",
+      "Probability": 0.7998,
+      "Entry Price": 258.760009765625,
+      "Forward Return (10d)": -0.000772964134652887,
+      "Gross PnL ($)": -0.814749066426461,
+      "Commission ($)": 2.1081160946551245,
+      "Net PnL ($)": -2.9228651610815857
+    },
+    {
+      "Date": "2026-04-09",
+      "Symbol": "CAT",
+      "Probability": 0.7517,
+      "Entry Price": 785.5744018554688,
+      "Forward Return (10d)": 0.06322200451236681,
+      "Gross PnL ($)": 66.6396626244397,
+      "Commission ($)": 2.1081160946551245,
+      "Net PnL ($)": 64.53154652978456
+    },
+    {
+      "Date": "2026-04-09",
+      "Symbol": "JBHT",
+      "Probability": 0.7399,
+      "Entry Price": 224.80152893066406,
+      "Forward Return (10d)": 0.12649857360479588,
+      "Gross PnL ($)": 133.33683948359305,
+      "Commission ($)": 2.1081160946551245,
+      "Net PnL ($)": 131.22872338893794
+    },
+    {
+      "Date": "2026-04-09",
+      "Symbol": "GOOG",
+      "Probability": 0.738,
+      "Entry Price": 316.3699951171875,
+      "Forward Return (10d)": 0.06757911689726792,
+      "Gross PnL ($)": 71.23231199685529,
+      "Commission ($)": 2.1081160946551245,
+      "Net PnL ($)": 69.12419590220016
+    },
+    {
+      "Date": "2026-04-09",
+      "Symbol": "C",
+      "Probability": 0.7234,
+      "Entry Price": 124.33186340332031,
+      "Forward Return (10d)": 0.02873832581450686,
+      "Gross PnL ($)": 30.291863591502374,
+      "Commission ($)": 2.1081160946551245,
+      "Net PnL ($)": 28.18374749684725
+    },
+    {
+      "Date": "2026-04-09",
+      "Symbol": "PH",
+      "Probability": 0.722,
+      "Entry Price": 980.7731323242188,
+      "Forward Return (10d)": -0.009267603489877763,
+      "Gross PnL ($)": -9.768592037946656,
+      "Commission ($)": 2.1081160946551245,
+      "Net PnL ($)": -11.876708132601781
+    },
+    {
+      "Date": "2026-04-09",
+      "Symbol": "BEN",
+      "Probability": 0.7059,
+      "Entry Price": 25.040000915527344,
+      "Forward Return (10d)": 0.07108621063160969,
+      "Gross PnL ($)": 74.92899237027031,
+      "Commission ($)": 2.1081160946551245,
+      "Net PnL ($)": 72.82087627561518
+    },
+    {
+      "Date": "2026-04-09",
+      "Symbol": "DELL",
+      "Probability": 0.7054,
+      "Entry Price": 180.9002685546875,
+      "Forward Return (10d)": 0.17269035079136397,
+      "Gross PnL ($)": 182.02565394745685,
+      "Commission ($)": 2.1081160946551245,
+      "Net PnL ($)": 179.91753785280173
+    },
+    {
+      "Date": "2026-04-09",
+      "Symbol": "ANET",
+      "Probability": 0.7041,
+      "Entry Price": 146.0500030517578,
+      "Forward Return (10d)": 0.1814447069241678,
+      "Gross PnL ($)": 191.25325347841013,
+      "Commission ($)": 2.1081160946551245,
+      "Net PnL ($)": 189.145137383755
+    },
+    {
+      "Date": "2026-04-16",
+      "Symbol": "ALB",
+      "Probability": 0.8877,
+      "Entry Price": 215.6199951171875,
+      "Forward Return (10d)": -0.08774695574342473,
+      "Gross PnL ($)": -100.57686535308936,
+      "Commission ($)": 2.2924297373274065,
+      "Net PnL ($)": -102.86929509041677
+    },
+    {
+      "Date": "2026-04-16",
+      "Symbol": "ORCL",
+      "Probability": 0.8764,
+      "Entry Price": 178.33999633789062,
+      "Forward Return (10d)": -0.09504316079567476,
+      "Gross PnL ($)": -108.93988406879758,
+      "Commission ($)": 2.2924297373274065,
+      "Net PnL ($)": -111.23231380612499
+    },
+    {
+      "Date": "2026-04-16",
+      "Symbol": "WDC",
+      "Probability": 0.8217,
+      "Entry Price": 361.69000244140625,
+      "Forward Return (10d)": 0.20136024241937434,
+      "Gross PnL ($)": 230.80210381881463,
+      "Commission ($)": 2.2924297373274065,
+      "Net PnL ($)": 228.50967408148722
+    },
+    {
+      "Date": "2026-04-16",
+      "Symbol": "ANET",
+      "Probability": 0.8073,
+      "Entry Price": 161.00999450683594,
+      "Forward Return (10d)": 0.07266637231351813,
+      "Gross PnL ($)": 83.29127639760695,
+      "Commission ($)": 2.2924297373274065,
+      "Net PnL ($)": 80.99884666027954
+    },
+    {
+      "Date": "2026-04-16",
+      "Symbol": "FOXA",
+      "Probability": 0.8022,
+      "Entry Price": 64.5199966430664,
+      "Forward Return (10d)": -0.015963964944041842,
+      "Gross PnL ($)": -18.298133981686885,
+      "Commission ($)": 2.2924297373274065,
+      "Net PnL ($)": -20.59056371901429
+    },
+    {
+      "Date": "2026-04-16",
+      "Symbol": "META",
+      "Probability": 0.7942,
+      "Entry Price": 676.8699951171875,
+      "Forward Return (10d)": -0.09597119452962255,
+      "Gross PnL ($)": -110.00361013327003,
+      "Commission ($)": 2.2924297373274065,
+      "Net PnL ($)": -112.29603987059744
+    },
+    {
+      "Date": "2026-04-16",
+      "Symbol": "APH",
+      "Probability": 0.7743,
+      "Entry Price": 148.9600067138672,
+      "Forward Return (10d)": -0.011345343483049941,
+      "Gross PnL ($)": -13.00420139036869,
+      "Commission ($)": 2.2924297373274065,
+      "Net PnL ($)": -15.296631127696097
+    },
+    {
+      "Date": "2026-04-16",
+      "Symbol": "JBHT",
+      "Probability": 0.7523,
+      "Entry Price": 237.877197265625,
+      "Forward Return (10d)": 0.05542960912202566,
+      "Gross PnL ($)": 63.53424213988305,
+      "Commission ($)": 2.2924297373274065,
+      "Net PnL ($)": 61.24181240255564
+    },
+    {
+      "Date": "2026-04-16",
+      "Symbol": "EXPE",
+      "Probability": 0.748,
+      "Entry Price": 254.42999267578125,
+      "Forward Return (10d)": -0.023817937086984764,
+      "Gross PnL ($)": -27.30047362999859,
+      "Commission ($)": 2.2924297373274065,
+      "Net PnL ($)": -29.592903367325995
+    },
+    {
+      "Date": "2026-04-16",
+      "Symbol": "DELL",
+      "Probability": 0.7386,
+      "Entry Price": 192.494384765625,
+      "Forward Return (10d)": 0.08548619328638085,
+      "Gross PnL ($)": 97.98554581030899,
+      "Commission ($)": 2.2924297373274065,
+      "Net PnL ($)": 95.69311607298158
+    },
+    {
+      "Date": "2026-04-23",
+      "Symbol": "WDC",
+      "Probability": 0.8347,
+      "Entry Price": 403.1199951171875,
+      "Forward Return (10d)": 0.1507987926206691,
+      "Gross PnL ($)": 173.9722600651573,
+      "Commission ($)": 2.3073428777746323,
+      "Net PnL ($)": 171.66491718738266
+    },
+    {
+      "Date": "2026-04-23",
+      "Symbol": "CMCSA",
+      "Probability": 0.7993,
+      "Entry Price": 31.639999389648438,
+      "Forward Return (10d)": -0.1706700291624208,
+      "Gross PnL ($)": -196.8971381187502,
+      "Commission ($)": 2.3073428777746323,
+      "Net PnL ($)": -199.20448099652484
+    },
+    {
+      "Date": "2026-04-23",
+      "Symbol": "DHI",
+      "Probability": 0.7615,
+      "Entry Price": 163.72459411621094,
+      "Forward Return (10d)": -0.10844181957724497,
+      "Gross PnL ($)": -125.10623002723892,
+      "Commission ($)": 2.3073428777746323,
+      "Net PnL ($)": -127.41357290501355
+    },
+    {
+      "Date": "2026-04-23",
+      "Symbol": "JBHT",
+      "Probability": 0.7578,
+      "Entry Price": 253.2386016845703,
+      "Forward Return (10d)": -0.04540617471000219,
+      "Gross PnL ($)": -52.38380691205709,
+      "Commission ($)": 2.3073428777746323,
+      "Net PnL ($)": -54.69114978983172
+    },
+    {
+      "Date": "2026-04-23",
+      "Symbol": "PWR",
+      "Probability": 0.7554,
+      "Entry Price": 633.4400024414062,
+      "Forward Return (10d)": 0.18516351600038572,
+      "Gross PnL ($)": 213.61785993359956,
+      "Commission ($)": 2.3073428777746323,
+      "Net PnL ($)": 211.31051705582493
+    },
+    {
+      "Date": "2026-04-23",
+      "Symbol": "ANET",
+      "Probability": 0.745,
+      "Entry Price": 172.5500030517578,
+      "Forward Return (10d)": -0.17849900033046706,
+      "Gross PnL ($)": -205.92919855119743,
+      "Commission ($)": 2.3073428777746323,
+      "Net PnL ($)": -208.23654142897206
+    },
+    {
+      "Date": "2026-04-23",
+      "Symbol": "WST",
+      "Probability": 0.6986,
+      "Entry Price": 309.4667663574219,
+      "Forward Return (10d)": 0.040531794595727755,
+      "Gross PnL ($)": 46.76037379193838,
+      "Commission ($)": 2.3073428777746323,
+      "Net PnL ($)": 44.45303091416375
+    },
+    {
+      "Date": "2026-04-23",
+      "Symbol": "ORCL",
+      "Probability": 0.6982,
+      "Entry Price": 176.27999877929688,
+      "Forward Return (10d)": 0.10386883188896512,
+      "Gross PnL ($)": 119.83050474088712,
+      "Commission ($)": 2.3073428777746323,
+      "Net PnL ($)": 117.52316186311249
+    },
+    {
+      "Date": "2026-04-23",
+      "Symbol": "LEN",
+      "Probability": 0.697,
+      "Entry Price": 94.18000030517578,
+      "Forward Return (10d)": -0.0683797241509706,
+      "Gross PnL ($)": -78.88773475196801,
+      "Commission ($)": 2.3073428777746323,
+      "Net PnL ($)": -81.19507762974264
+    },
+    {
+      "Date": "2026-04-23",
+      "Symbol": "DELL",
+      "Probability": 0.6953,
+      "Entry Price": 212.13999938964844,
+      "Forward Return (10d)": 0.085462453733264,
+      "Gross PnL ($)": 98.59559196929536,
+      "Commission ($)": 2.3073428777746323,
+      "Net PnL ($)": 96.28824909152073
+    },
+    {
+      "Date": "2026-04-30",
+      "Symbol": "PWR",
+      "Probability": 0.9293,
+      "Entry Price": 727.77001953125,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.3014426884470165,
+      "Net PnL ($)": -2.3014426884470165
+    },
+    {
+      "Date": "2026-04-30",
+      "Symbol": "WDC",
+      "Probability": 0.8114,
+      "Entry Price": 434.5199890136719,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.3014426884470165,
+      "Net PnL ($)": -2.3014426884470165
+    },
+    {
+      "Date": "2026-04-30",
+      "Symbol": "CAT",
+      "Probability": 0.7896,
+      "Entry Price": 890.1099853515625,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.3014426884470165,
+      "Net PnL ($)": -2.3014426884470165
+    },
+    {
+      "Date": "2026-04-30",
+      "Symbol": "GOOG",
+      "Probability": 0.7739,
+      "Entry Price": 381.94000244140625,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.3014426884470165,
+      "Net PnL ($)": -2.3014426884470165
+    },
+    {
+      "Date": "2026-04-30",
+      "Symbol": "BEN",
+      "Probability": 0.7735,
+      "Entry Price": 29.969999313354492,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.3014426884470165,
+      "Net PnL ($)": -2.3014426884470165
+    },
+    {
+      "Date": "2026-04-30",
+      "Symbol": "IEX",
+      "Probability": 0.7409,
+      "Entry Price": 217.85000610351562,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.3014426884470165,
+      "Net PnL ($)": -2.3014426884470165
+    },
+    {
+      "Date": "2026-04-30",
+      "Symbol": "SBUX",
+      "Probability": 0.7251,
+      "Entry Price": 105.33000183105469,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.3014426884470165,
+      "Net PnL ($)": -2.3014426884470165
+    },
+    {
+      "Date": "2026-04-30",
+      "Symbol": "CSCO",
+      "Probability": 0.7102,
+      "Entry Price": 91.5,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.3014426884470165,
+      "Net PnL ($)": -2.3014426884470165
+    },
+    {
+      "Date": "2026-04-30",
+      "Symbol": "ANET",
+      "Probability": 0.7084,
+      "Entry Price": 172.7100067138672,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.3014426884470165,
+      "Net PnL ($)": -2.3014426884470165
+    },
+    {
+      "Date": "2026-04-30",
+      "Symbol": "HPE",
+      "Probability": 0.6972,
+      "Entry Price": 28.770000457763672,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.3014426884470165,
+      "Net PnL ($)": -2.3014426884470165
+    },
+    {
+      "Date": "2026-05-07",
+      "Symbol": "FTNT",
+      "Probability": 0.95,
+      "Entry Price": 107.97000122070312,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.296839803070122,
+      "Net PnL ($)": -2.296839803070122
+    },
+    {
+      "Date": "2026-05-07",
+      "Symbol": "VTRS",
+      "Probability": 0.8363,
+      "Entry Price": 17.389999389648438,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.296839803070122,
+      "Net PnL ($)": -2.296839803070122
+    },
+    {
+      "Date": "2026-05-07",
+      "Symbol": "DELL",
+      "Probability": 0.8037,
+      "Entry Price": 230.27000427246094,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.296839803070122,
+      "Net PnL ($)": -2.296839803070122
+    },
+    {
+      "Date": "2026-05-07",
+      "Symbol": "PWR",
+      "Probability": 0.7916,
+      "Entry Price": 750.72998046875,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.296839803070122,
+      "Net PnL ($)": -2.296839803070122
+    },
+    {
+      "Date": "2026-05-07",
+      "Symbol": "WDC",
+      "Probability": 0.7869,
+      "Entry Price": 463.9100036621094,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.296839803070122,
+      "Net PnL ($)": -2.296839803070122
+    },
+    {
+      "Date": "2026-05-07",
+      "Symbol": "ORCL",
+      "Probability": 0.7816,
+      "Entry Price": 194.58999633789062,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.296839803070122,
+      "Net PnL ($)": -2.296839803070122
+    },
+    {
+      "Date": "2026-05-07",
+      "Symbol": "WST",
+      "Probability": 0.7693,
+      "Entry Price": 322.010009765625,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.296839803070122,
+      "Net PnL ($)": -2.296839803070122
+    },
+    {
+      "Date": "2026-05-07",
+      "Symbol": "TSLA",
+      "Probability": 0.7636,
+      "Entry Price": 411.7900085449219,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.296839803070122,
+      "Net PnL ($)": -2.296839803070122
+    },
+    {
+      "Date": "2026-05-07",
+      "Symbol": "GOOG",
+      "Probability": 0.7563,
+      "Entry Price": 395.29998779296875,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.296839803070122,
+      "Net PnL ($)": -2.296839803070122
+    },
+    {
+      "Date": "2026-05-07",
+      "Symbol": "FFIV",
+      "Probability": 0.7434,
+      "Entry Price": 345.0199890136719,
+      "Forward Return (10d)": 0.0,
+      "Gross PnL ($)": 0.0,
+      "Commission ($)": 2.296839803070122,
+      "Net PnL ($)": -2.296839803070122
+    }
+  ],
+  "summary": {
+    "final_capital": 11461.230617319909,
+    "total_return_pct": 14.612306173199086,
+    "total_trades": 60,
+    "win_rate": 0.4,
+    "profit_factor": 2.1899291497267956,
+    "sharpe_ratio": 7.061302438886391,
+    "max_drawdown": -0.006542917594116237,
+    "alpha": 0.10443547150739951
+  }
+}

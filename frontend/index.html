@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockForecast — прогноз роста акций S&P 500</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background: #f5f7fb; color: #1e293b; }
+        .app-header { background: #0f172a; color: white; padding: 1rem 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .logo h1 { font-size: 1.6rem; font-weight: 600; }
+        .logo span { color: #38bdf8; }
+        .nav-links { display: flex; gap: 2rem; margin-top: 0.75rem; flex-wrap: wrap; }
+        .nav-links button { background: none; border: none; color: #cbd5e1; font-size: 1rem; font-weight: 500; cursor: pointer; padding: 0.5rem 0; border-bottom: 2px solid transparent; }
+        .nav-links button.active { color: white; border-bottom-color: #38bdf8; }
+        .container { max-width: 1600px; margin: 2rem auto; padding: 0 2rem; }
+        .card { background: white; border-radius: 24px; padding: 1.5rem; margin-bottom: 2rem; border: 1px solid #e2e8f0; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .stat-card { background: #f8fafc; border-radius: 20px; padding: 1rem; text-align: center; }
+        .stat-value { font-size: 1.6rem; font-weight: 700; color: #2563eb; }
+        .stat-label { font-size: 0.75rem; color: #64748b; margin-top: 0.25rem; }
+        .profit-positive { color: #10b981; }
+        .profit-negative { color: #ef4444; }
+        button.btn { background: #0f172a; color: white; border: none; padding: 0.7rem 1.5rem; border-radius: 40px; font-weight: 600; cursor: pointer; }
+        button.btn-success { background: #10b981; }
+        button.btn-success:hover { background: #059669; }
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table th, .data-table td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .data-table th { background: #f8fafc; font-weight: 600; }
+        canvas { max-height: 350px; width: 100%; }
+        .page { display: none; }
+        .active-page { display: block; }
+        .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+        .loading { color: #94a3b8; font-style: italic; text-align: center; padding: 2rem; }
+        .error-msg { color: #ef4444; background: #fee2e2; padding: 0.75rem; border-radius: 12px; }
+        .trade-profitable { background: #ecfdf5; }
+        .trade-unprofitable { background: #fef2f2; }
+        @media (max-width: 1000px) { .chart-row { grid-template-columns: 1fr; } .container { padding: 0 1rem; } }
+    </style>
+</head>
+<body>
+    <div class="app-header">
+        <div class="logo"><h1>📈 Stock<span>Forecast</span></h1></div>
+        <div class="nav-links">
+            <button data-page="forecast" class="active">🔮 Топ прогнозов</button>
+            <button data-page="backtest">📊 Бэктест (Апр-Май 2026)</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Прогнозы -->
+        <div id="forecastPage" class="page active-page">
+            <div class="card">
+                <h2>🚀 Топ акций по прогнозу модели</h2>
+                <p id="metaInfo" class="loading">Загрузка...</p>
+                <canvas id="forecastChart" style="max-height: 400px;"></canvas>
+                <div style="overflow-x: auto; margin-top: 1.5rem;">
+                    <table class="data-table">
+                        <thead><tr><th>#</th><th>Тикер</th><th>Вероятность роста</th><th>Дата</th></tr></thead>
+                        <tbody id="topPicksBody"><tr><td colspan="4" class="loading">Загрузка...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Бэктест -->
+        <div id="backtestPage" class="page">
+            <div class="card">
+                <h2>📊 Результаты бэктеста (1 апреля - 8 мая 2026)</h2>
+                <button class="btn btn-success" onclick="runBacktest()">🔄 Запустить бэктест заново</button>
+                <div id="backtestLoader" style="display: none; margin-top: 1rem;" class="loading">⏳ Запуск...</div>
+            </div>
+
+            <div class="card">
+                <h3>📈 Ключевые метрики</h3>
+                <div class="stats-grid" id="backtestStats">
+                    <div class="stat-card"><div class="stat-value" id="btFinalCapital">—</div><div class="stat-label">Финальный капитал</div></div>
+                    <div class="stat-card"><div class="stat-value" id="btTotalReturn">—</div><div class="stat-label">Доходность</div></div>
+                    <div class="stat-card"><div class="stat-value" id="btSharpeRatio">—</div><div class="stat-label">Sharpe Ratio</div></div>
+                    <div class="stat-card"><div class="stat-value" id="btMaxDrawdown">—</div><div class="stat-label">Max Drawdown</div></div>
+                    <div class="stat-card"><div class="stat-value" id="btWinRate">—</div><div class="stat-label">Win Rate</div></div>
+                    <div class="stat-card"><div class="stat-value" id="btProfitFactor">—</div><div class="stat-label">Profit Factor</div></div>
+                    <div class="stat-card"><div class="stat-value" id="btTotalTrades">—</div><div class="stat-label">Всего сделок</div></div>
+                    <div class="stat-card"><div class="stat-value" id="btAlpha">—</div><div class="stat-label">Alpha vs B&H</div></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📈 Кривая капитала</h3>
+                <canvas id="equityChart" style="height: 400px;"></canvas>
+            </div>
+
+            <div class="card">
+                <h3>📉 Просадка</h3>
+                <canvas id="drawdownChart" style="height: 300px;"></canvas>
+            </div>
+
+            <div class="chart-row">
+                <div class="card" style="margin-bottom:0;">
+                    <h3>💰 P&L по периодам</h3>
+                    <canvas id="pnlChart" style="height: 300px;"></canvas>
+                </div>
+                <div class="card" style="margin-bottom:0;">
+                    <h3>📊 Распределение P&L</h3>
+                    <canvas id="pnlDistChart" style="height: 300px;"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-row">
+                <div class="card" style="margin-bottom:0;">
+                    <h3>🥧 Win / Loss Ratio</h3>
+                    <canvas id="winLossChart" style="height: 300px;"></canvas>
+                </div>
+                <div class="card" style="margin-bottom:0;">
+                    <h3>🏆 Топ тикеров по частоте</h3>
+                    <canvas id="topTickersChart" style="height: 300px;"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🏆 Топ-10 лучших сделок</h3>
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead><tr><th>Дата</th><th>Тикер</th><th>Вероятность</th><th>Доходность</th><th>P&L</th></tr></thead>
+                        <tbody id="bestTradesBody"><tr><td colspan="5" class="loading">Загрузка...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📉 Топ-10 худших сделок</h3>
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead><tr><th>Дата</th><th>Тикер</th><th>Вероятность</th><th>Доходность</th><th>P&L</th></tr></thead>
+                        <tbody id="worstTradesBody"><tr><td colspan="5" class="loading">Загрузка...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer style="text-align: center; padding: 2rem; color: #64748b;">© 2026 StockForecast</footer>
+
+    <script>
+        const API_BASE = "http://localhost:8000";
+        let charts = {};
+
+        // Загрузка прогнозов
+        async function loadForecast() {
+            try {
+                const resp = await fetch(`${API_BASE}/api/predictions/latest`);
+                if (!resp.ok) throw new Error('Нет данных');
+                const data = await resp.json();
+                const topPicks = data.top_picks || [];
+                const meta = data.metadata || {};
+                
+                document.getElementById('metaInfo').innerHTML = `Прогноз на <b>${meta.prediction_date || '—'}</b> · Модель: <b>${meta.model || '—'}</b> · Оценено: <b>${meta.total_stocks_scored || '—'}</b> акций`;
+                
+                const tbody = document.getElementById('topPicksBody');
+                tbody.innerHTML = topPicks.map(p => `
+                    <tr>
+                        <td><b>#${p.rank}</b></td>
+                        <td><b>${p.symbol}</b></td>
+                        <td><div style="display:flex; align-items:center; gap:0.5rem;"><div style="background:#2563eb; height:8px; width:${p.prob_growth * 100}px; border-radius:4px;"></div><b>${(p.prob_growth * 100).toFixed(1)}%</b></div></td>
+                        <td>${p.signal_date}</td>
+                    </tr>
+                `).join('');
+                
+                // График прогнозов
+                const ctx = document.getElementById('forecastChart').getContext('2d');
+                if (charts.forecast) charts.forecast.destroy();
+                charts.forecast = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: topPicks.slice(0, 15).map(p => p.symbol),
+                        datasets: [{ label: 'Вероятность роста (%)', data: topPicks.slice(0, 15).map(p => p.prob_growth * 100), backgroundColor: '#2563eb', borderRadius: 8 }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: true, scales: { y: { min: 0, max: 100, title: { display: true, text: '%' } } } }
+                });
+            } catch(e) {
+                document.getElementById('metaInfo').innerHTML = `<span class="error-msg">Ошибка: ${e.message}</span>`;
+            }
+        }
+
+        // Загрузка бэктеста
+        async function loadBacktest() {
+            try {
+                // Метрики
+                const summaryResp = await fetch(`${API_BASE}/api/backtest/summary`);
+                if (summaryResp.ok) {
+                    const s = await summaryResp.json();
+                    document.getElementById('btFinalCapital').innerHTML = `$${s.final_capital?.toFixed(2)}`;
+                    document.getElementById('btTotalReturn').innerHTML = `<span class="${s.total_return_pct >= 0 ? 'profit-positive' : 'profit-negative'}">${s.total_return_pct?.toFixed(2)}%</span>`;
+                    document.getElementById('btSharpeRatio').innerHTML = s.sharpe_ratio?.toFixed(2);
+                    document.getElementById('btMaxDrawdown').innerHTML = `${(s.max_drawdown * 100)?.toFixed(2)}%`;
+                    document.getElementById('btWinRate').innerHTML = `${(s.win_rate * 100)?.toFixed(1)}%`;
+                    document.getElementById('btProfitFactor').innerHTML = s.profit_factor?.toFixed(2);
+                    document.getElementById('btTotalTrades').innerHTML = s.total_trades;
+                    document.getElementById('btAlpha').innerHTML = `<span class="${s.alpha >= 0 ? 'profit-positive' : 'profit-negative'}">${(s.alpha * 100)?.toFixed(2)}%</span>`;
+                }
+                
+                // Данные для графиков
+                const equityResp = await fetch(`${API_BASE}/api/backtest/charts/equity`);
+                if (equityResp.ok) {
+                    const data = await equityResp.json();
+                    if (data.dates && data.dates.length) {
+                        // График equity
+                        const ctxEq = document.getElementById('equityChart').getContext('2d');
+                        if (charts.equity) charts.equity.destroy();
+                        charts.equity = new Chart(ctxEq, {
+                            type: 'line',
+                            data: { labels: data.dates, datasets: [{ label: 'Капитал ($)', data: data.equity, borderColor: '#2563eb', backgroundColor: 'rgba(37,99,235,0.1)', fill: true, tension: 0.3 }] },
+                            options: { responsive: true, maintainAspectRatio: true }
+                        });
+                        
+                        // График просадки
+                        const ctxDd = document.getElementById('drawdownChart').getContext('2d');
+                        if (charts.drawdown) charts.drawdown.destroy();
+                        charts.drawdown = new Chart(ctxDd, {
+                            type: 'line',
+                            data: { labels: data.dates, datasets: [{ label: 'Просадка (%)', data: data.drawdown.map(d => d * 100), borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,0.2)', fill: true, tension: 0.3 }] },
+                            options: { responsive: true, maintainAspectRatio: true }
+                        });
+                        
+                        // P&L по периодам
+                        const ctxPnl = document.getElementById('pnlChart').getContext('2d');
+                        if (charts.pnl) charts.pnl.destroy();
+                        const colors = data.pnl.map(p => p >= 0 ? '#10b981' : '#ef4444');
+                        charts.pnl = new Chart(ctxPnl, {
+                            type: 'bar',
+                            data: { labels: data.dates, datasets: [{ label: 'P&L ($)', data: data.pnl, backgroundColor: colors, borderRadius: 4 }] },
+                            options: { responsive: true, maintainAspectRatio: true }
+                        });
+                    }
+                }
+                
+                // Распределение
+                const distResp = await fetch(`${API_BASE}/api/backtest/charts/distribution`);
+                if (distResp.ok) {
+                    const data = await distResp.json();
+                    
+                    // Гистограмма P&L
+                    const ctxDist = document.getElementById('pnlDistChart').getContext('2d');
+                    if (charts.pnlDist) charts.pnlDist.destroy();
+                    const bins = 15;
+                    const min = Math.min(...data.pnl_distribution);
+                    const max = Math.max(...data.pnl_distribution);
+                    const step = (max - min) / bins;
+                    const hist = Array(bins).fill(0);
+                    data.pnl_distribution.forEach(v => {
+                        const idx = Math.min(Math.floor((v - min) / step), bins - 1);
+                        if (idx >= 0) hist[idx]++;
+                    });
+                    const histLabels = Array.from({length: bins}, (_, i) => `$${(min + i * step).toFixed(0)}`);
+                    charts.pnlDist = new Chart(ctxDist, {
+                        type: 'bar',
+                        data: { labels: histLabels, datasets: [{ label: 'Частота', data: hist, backgroundColor: '#6366f1', borderRadius: 4 }] },
+                        options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false } } }
+                    });
+                    
+                    // Win/Loss
+                    const ctxWl = document.getElementById('winLossChart').getContext('2d');
+                    if (charts.winLoss) charts.winLoss.destroy();
+                    charts.winLoss = new Chart(ctxWl, {
+                        type: 'doughnut',
+                        data: { labels: [`Прибыльные (${data.win_loss.wins})`, `Убыточные (${data.win_loss.losses})`], datasets: [{ data: [data.win_loss.wins, data.win_loss.losses], backgroundColor: ['#10b981', '#ef4444'] }] },
+                        options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'bottom' } } }
+                    });
+                }
+                
+                // Топ тикеров
+                const tickersResp = await fetch(`${API_BASE}/api/backtest/charts/top_tickers`);
+                if (tickersResp.ok) {
+                    const data = await tickersResp.json();
+                    if (data.symbols && data.symbols.length) {
+                        const ctxTop = document.getElementById('topTickersChart').getContext('2d');
+                        if (charts.topTickers) charts.topTickers.destroy();
+                        charts.topTickers = new Chart(ctxTop, {
+                            type: 'bar',
+                            data: { labels: data.symbols, datasets: [{ label: 'Количество сделок', data: data.counts, backgroundColor: '#f59e0b', borderRadius: 4 }] },
+                            options: { responsive: true, maintainAspectRatio: true, indexAxis: 'y' }
+                        });
+                    }
+                }
+                
+                // Сделки
+                const tradesResp = await fetch(`${API_BASE}/api/backtest/trades`);
+                if (tradesResp.ok) {
+                    const trades = await tradesResp.json();
+                    const best = [...trades].sort((a,b) => b['Net PnL ($)'] - a['Net PnL ($)']).slice(0, 10);
+                    const worst = [...trades].sort((a,b) => a['Net PnL ($)'] - b['Net PnL ($)']).slice(0, 10);
+                    
+                    document.getElementById('bestTradesBody').innerHTML = best.map(t => `
+                        <tr class="${t['Net PnL ($)'] >= 0 ? 'trade-profitable' : 'trade-unprofitable'}">
+                            <td>${t.Date}</td><td><b>${t.Symbol}</b></td><td>${(t.Probability * 100).toFixed(1)}%</td>
+                            <td class="${t['Forward Return (10d)'] >= 0 ? 'profit-positive' : 'profit-negative'}">${(t['Forward Return (10d)'] * 100).toFixed(2)}%</td>
+                            <td class="${t['Net PnL ($)'] >= 0 ? 'profit-positive' : 'profit-negative'}">${t['Net PnL ($)'] >= 0 ? '+' : ''}$${t['Net PnL ($)'].toFixed(2)}</td>
+                        </tr>
+                    `).join('');
+                    
+                    document.getElementById('worstTradesBody').innerHTML = worst.map(t => `
+                        <tr class="${t['Net PnL ($)'] >= 0 ? 'trade-profitable' : 'trade-unprofitable'}">
+                            <td>${t.Date}</td><td><b>${t.Symbol}</b></td><td>${(t.Probability * 100).toFixed(1)}%</td>
+                            <td class="${t['Forward Return (10d)'] >= 0 ? 'profit-positive' : 'profit-negative'}">${(t['Forward Return (10d)'] * 100).toFixed(2)}%</td>
+                            <td class="${t['Net PnL ($)'] >= 0 ? 'profit-positive' : 'profit-negative'}">${t['Net PnL ($)'] >= 0 ? '+' : ''}$${t['Net PnL ($)'].toFixed(2)}</td>
+                        </tr>
+                    `).join('');
+                }
+            } catch(e) {
+                console.error('Backtest error:', e);
+            }
+        }
+        
+        async function runBacktest() {
+            const loader = document.getElementById('backtestLoader');
+            const btn = event.target;
+            loader.style.display = 'block';
+            btn.disabled = true;
+            try {
+                await fetch(`${API_BASE}/api/backtest/run`, { method: 'POST' });
+                await loadBacktest();
+                alert('✅ Бэктест завершён!');
+            } catch(e) { alert('Ошибка: ' + e.message); }
+            finally { loader.style.display = 'none'; btn.disabled = false; }
+        }
+        
+        function switchPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById(`${pageId}Page`).classList.add('active-page');
+            document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.toggle('active', btn.dataset.page === pageId));
+            if (pageId === 'backtest') loadBacktest();
+        }
+        
+        document.querySelectorAll('.nav-links button').forEach(btn => {
+            btn.addEventListener('click', () => switchPage(btn.dataset.page));
+        });
+        
+        loadForecast();
+    </script>
+</body>
+</html>
